@@ -69,14 +69,44 @@ function update() {
     let width = 100 + scale * 250;
     let offset = curve * Math.pow(scale, 2) * 200;
 
+    let center = this.scale.width / 2 + offset;
+    let y = i * 20;
+
+  // largura da pista
+    let roadWidth = width;
+
+  // largura da borda com perspectiva
+    let borderWidth = 5 + scale * 12;
+
+  // alternância de cor (vermelho/branco)
+    let color = i % 2 === 0 ? 0xff0000 : 0xffffff;
+
+  // 🟥⬜ BORDA ESQUERDA
+    this.road.fillStyle(color);
+    this.road.fillRect(
+      center - roadWidth / 2 - borderWidth,
+      y,
+      borderWidth,
+      20
+  );
+
+  // 🟥⬜ BORDA DIREITA
+    this.road.fillRect(
+      center + roadWidth / 2,
+      y,
+      borderWidth,
+      20
+  );
+
+  // 🛣️ PISTA
     this.road.fillStyle(0x333333);
     this.road.fillRect(
-      this.scale.width / 2 - width / 2 + offset,
-      i * 20,
-      width,
+      center - roadWidth / 2,
+      y,
+      roadWidth,
       20
-    );
-  }
+  );
+}
 
   // 🎮 CONTROLE DO CARRO
   if (cursors.left.isDown) player.x -= 6;
