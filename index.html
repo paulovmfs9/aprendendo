@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
 <style>
-  body {
+body {
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -19,12 +19,10 @@ const config = {
   type: Phaser.AUTO,
   width: window.innerWidth,
   height: window.innerHeight,
-
   scale: {
     mode: Phaser.Scale.RESIZE,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-
   scene: { create, update }
 };
 
@@ -40,22 +38,22 @@ const game = new Phaser.Game(config);
 
 function create() {
   this.add.rectangle(
-  this.scale.width / 2,
-  this.scale.height / 2,
-  this.scale.width,
-  this.scale.height,
-  0x6ecb3c
-);
+    this.scale.width / 2,
+    this.scale.height / 2,
+    this.scale.width,
+    this.scale.height,
+    0x6ecb3c
+  );
 
   this.road = this.add.graphics();
 
   player = this.add.rectangle(
-  this.scale.width / 2,
-  this.scale.height - 80,
-  50,
-  80,
-  0xff0000
-);
+    this.scale.width / 2,
+    this.scale.height - 80,
+    50,
+    80,
+    0xff0000
+  );
 
   cursors = this.input.keyboard.createCursorKeys();
 }
@@ -63,11 +61,11 @@ function create() {
 function update() {
   this.road.clear();
 
-  // curva dinâmica
+  // curva
   curve += 0.02 * curveDirection;
   if (curve > 1 || curve < -1) curveDirection *= -1;
 
-  // cálculo da pista perto do jogador
+  // pista perto do jogador
   let playerZone = 29;
   let playerScale = playerZone / 30;
 
@@ -95,16 +93,15 @@ function update() {
     this.road.fillRect(center - width / 2, y, width, 20);
   }
 
-  // 🎮 CONTROLE
+  // controle
   let speed = 6;
-
   if (cursors.left.isDown) player.x -= speed;
   if (cursors.right.isDown) player.x += speed;
 
-  // 🌀 CURVA
+  // curva influencia
   player.x += curve * 2.5;
 
-  // 🚧 COLISÃO
+  // colisão
   let halfCar = player.width / 2;
 
   let leftLimit = currentRoadCenter - currentRoadWidth / 2 + halfCar;
@@ -112,27 +109,6 @@ function update() {
 
   if (player.x < leftLimit) player.x = leftLimit;
   if (player.x > rightLimit) player.x = rightLimit;
-}
-
-  // 🎮 CONTROLE
-  let speed = 6;
-
-  if (cursors.left.isDown) player.x -= speed;
-  if (cursors.right.isDown) player.x += speed;
-
-  // 🌀 CURVA
-  player.x += curve * 2.5;
-
-  // 🚧 COLISÃO REAL
-  let halfCar = player.width / 2;
-
-  let leftLimit = currentRoadCenter - currentRoadWidth / 2 + halfCar;
-  let rightLimit = currentRoadCenter + currentRoadWidth / 2 - halfCar;
-
-  if (player.x < leftLimit) player.x = leftLimit;
-  if (player.x > rightLimit) player.x = rightLimit;
-}
-    
 }
 </script>
 
