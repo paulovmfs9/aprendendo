@@ -99,7 +99,10 @@ function update() {
   }
 
   // controle
-  let speed = 6;
+  let turnSpeed = 4 + speed * 0.3;
+
+  if (cursors.left.isDown) player.x -= turnSpeed;
+  if (cursors.right.isDown) player.x += turnSpeed;
   
   // 🚀 ACELERAÇÃO
   if (cursors.up.isDown) {
