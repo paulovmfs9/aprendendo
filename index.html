@@ -68,7 +68,7 @@ function update() {
   let scale = playerZone / 30;
 
   currentRoadWidth = 100 + scale * 250;
-  currentRoadCenter = this.scale.width / 2 + (curve * Math.pow(scale, 2) * 200);
+  currentRoadCenter = this.scale.width / 2 + (curve * Math.pow(playerScale, 2) * 200);
 
   // curva dinâmica
   curve += 0.02 * curveDirection;
@@ -129,14 +129,12 @@ function update() {
 
   // colisão esquerda
   if (player.x < leftLimit) {
-    player.x = leftLimit;
-    player.x += 2; // empurra pra dentro da pista
+    player.x = leftLimit + 2;
   }
 
   // colisão direita
   if (player.x > rightLimit) {
-    player.x = rightLimit;
-    player.x -= 2; // empurra pra dentro da pista
+    player.x = rightLimit - 2;
   }
     
 }
