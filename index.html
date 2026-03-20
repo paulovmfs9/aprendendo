@@ -100,9 +100,22 @@ function update() {
 
   // controle
   let speed = 6;
-  if (cursors.left.isDown) player.x -= speed;
-  if (cursors.right.isDown) player.x += speed;
+  
+  // 🚀 ACELERAÇÃO
+  if (cursors.up.isDown) {
+    speed += acceleration;
+  } else {
+    speed -= friction;
+  }
 
+  // 🛑 FREIO
+  if (cursors.down.isDown) {
+    speed -= acceleration * 1.5;
+  }
+
+  // limite
+  speed = Phaser.Math.Clamp(speed, 0, maxSpeed);
+  
   // curva influencia
   player.x += curve * 2.5;
 
