@@ -83,7 +83,7 @@ function update() {
     let offset = curve * Math.pow(scale, 2) * 200;
 
     let center = this.scale.width / 2 + offset;
-    let y = i * 20;
+    let y = (i * 20 + speed * 5) % this.scale.height;
 
     let borderWidth = 6 + scale * 10;
     let color = i % 2 === 0 ? 0xff0000 : 0xffffff;
