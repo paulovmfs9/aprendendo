@@ -32,7 +32,6 @@ let player;
 let cursors;
 let curve = 0;
 let curveDirection = 1;
-let roadLines = [];
 
 const game = new Phaser.Game(config);
 
@@ -46,11 +45,6 @@ function create() {
 );
 
   this.road = this.add.graphics();
-
-  for (let i = 0; i < 30; i++) {
-    let line = this.add.rectangle(this.scale.width / 2, i * 20, 4, 10, 0xffffff);
-    roadLines.push(line);
-  }
 
   player = this.add.rectangle(
   this.scale.width / 2,
@@ -83,18 +77,6 @@ function update() {
       20
     );
   }
-
-  // linhas
-  roadLines.forEach((line, i) => {
-    let scale = i / 30;
-    let offset = curve * Math.pow(scale, 2) * 200;
-
-    line.y += 5;
-    line.x = this.scale.width / 2 + offset; 
-    line.width = 4 + scale * 10;
-
-    if (line.y > this.scale.height) line.y = 0;
-  });
 
   // 🎮 CONTROLE DO CARRO
   if (cursors.left.isDown) player.x -= 6;
