@@ -64,10 +64,11 @@ function update() {
   this.road.clear();
 
   // posição da pista perto do carro (parte inferior)
-  let playerZone = 25;
-  let scale = playerZone / 30;
+  let playerZone = 29; // parte mais próxima do jogador
+  let playerScale = playerZone / 30;
 
-  currentRoadWidth = 100 + scale * 250;
+  currentRoadWidth = 80 + playerScale * 180;
+  currentRoadCenter = this.scale.width / 2 + (curve * Math.pow(playerScale, 2) * 200);
   currentRoadCenter = this.scale.width / 2 + (curve * Math.pow(playerScale, 2) * 200);
 
   // curva dinâmica
