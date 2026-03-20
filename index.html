@@ -118,11 +118,14 @@ function update() {
 }
 
   // 🎮 CONTROLE DO CARRO
-  if (cursors.left.isDown) player.x -= 6;
-  if (cursors.right.isDown) player.x += 6;
+  let speed = 6;
 
-  // 🌀 CURVA PUXANDO O CARRO
-  player.x += curve * 3;
+  // controle do jogador
+  if (cursors.left.isDown) player.x -= speed;
+  if (cursors.right.isDown) player.x += speed;
+
+  // força da curva
+  player.x += curve * 2.5;
 
   // 🚧 LIMITE DA PISTA
   let leftLimit = currentRoadCenter - currentRoadWidth / 2 + 10;
