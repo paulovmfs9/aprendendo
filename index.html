@@ -117,7 +117,7 @@ function update() {
   speed = Phaser.Math.Clamp(speed, 0, maxSpeed);
   
   // curva influencia
-  player.x += curve * 2.5;
+  player.x += curve * speed * 0.4;
 
   // colisão
   let halfCar = player.width / 2;
