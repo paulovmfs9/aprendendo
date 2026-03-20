@@ -80,16 +80,17 @@ function update() {
   let playerScale = playerZone / 30;
 
   currentRoadWidth = 80 + playerScale * 180;
-  currentRoadCenter = this.scale.width / 2 + (curve * Math.pow(playerScale, 2) * 200);
+  currentRoadCenter = this.scale.width / 2 + roadCurve;
 
   for (let i = 0; i < 30; i++) {
     let scale = i / 30;
     let width = 80 + scale * 180;
-    roadCurve += curve * 0.5; // acumula a curva
+    roadCurve += curve * 0.1; // acumula a curva
     
     let center = this.scale.width / 2 + roadCurve;
 
-    let y = (i * 20 + roadOffset) % this.scale.height;
+    let segmentHeight = 20;
+    let y = i * segmentHeight - (roadOffset % segmentHeight);
     
     let borderWidth = 6 + scale * 10;
     let color = i % 2 === 0 ? 0xff0000 : 0xffffff;
