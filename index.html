@@ -15,47 +15,45 @@ const config = {
   type: Phaser.AUTO,
   width: 400,
   height: 600,
-  physics: {
-    default: 'arcade'
-  },
-  scene: {
-    preload,
-    create,
-    update
-  }
+  physics: { default: 'arcade' },
+  scene: { create, update }
 };
 
 let player;
 let cursors;
-let road;
+let roadLines = [];
 
 const game = new Phaser.Game(config);
 
-// carregar imagens
-function preload() {
-  this.load.image('car', 'https://i.imgur.com/7QFQFQY.png');
-  this.load.image('road', 'https://i.imgur.com/3e5pQ7Y.png');
-}
-
-// criar elementos
 function create() {
-  road = this.add.tileSprite(200, 300, 400, 600, 'road');
-  player = this.physics.add.sprite(200, 500, 'car');
-  player.setScale(0.5);
+  // fundo da estrada
+  this.add.rectangle(200, 300, 300, 600, 0x333333);
+
+  // linhas da pista
+  for (let i = 0; i < 20; i++) {
+    let line = this.add.rectangle(200, i * 40, 5, 20, 0xffffff);
+    roadLines.push(line);
+  }
+
+  // jogador (carrinho)
+  player = this.add.rectangle(200, 500, 40, 60, 0xff0000);
+
+  // controles
   cursors = this.input.keyboard.createCursorKeys();
 }
 
-// atualizar jogo
 function update() {
-  road.tilePositionY -= 5;
+  // mover linhas da pista
+  roadLines.forEach(line => {
+    line.y += 5;
+    if (line.y > 600) line.y = 0;
+  });
 
-  if (cursors.left.isDown) {
-    player.x -= 5;
-  }
-  if (cursors.right.isDown) {
-    player.x += 5;
-  }
+  // movimento do carro
+  if (cursors.left.isDown) player.x -= 5;
+  if (cursors.right.isDown) player.x += 5;
 
+  // limites
   if (player.x < 80) player.x = 80;
   if (player.x > 320) player.x = 320;
 }
