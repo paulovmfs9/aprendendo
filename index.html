@@ -63,14 +63,6 @@ function create() {
 function update() {
   this.road.clear();
 
-  // posição da pista perto do carro (parte inferior)
-  let playerZone = 29; // parte mais próxima do jogador
-  let playerScale = playerZone / 30;
-
-  currentRoadWidth = 80 + playerScale * 180;
-  currentRoadCenter = this.scale.width / 2 + (curve * Math.pow(playerScale, 2) * 200);
-  currentRoadCenter = this.scale.width / 2 + (curve * Math.pow(playerScale, 2) * 200);
-
   // curva dinâmica
   curve += 0.02 * curveDirection;
   if (curve > 1 || curve < -1) curveDirection *= -1;
@@ -102,6 +94,25 @@ function update() {
     this.road.fillStyle(0x333333);
     this.road.fillRect(center - width / 2, y, width, 20);
   }
+
+  // 🎮 CONTROLE
+  let speed = 6;
+
+  if (cursors.left.isDown) player.x -= speed;
+  if (cursors.right.isDown) player.x += speed;
+
+  // 🌀 CURVA
+  player.x += curve * 2.5;
+
+  // 🚧 COLISÃO
+  let halfCar = player.width / 2;
+
+  let leftLimit = currentRoadCenter - currentRoadWidth / 2 + halfCar;
+  let rightLimit = currentRoadCenter + currentRoadWidth / 2 - halfCar;
+
+  if (player.x < leftLimit) player.x = leftLimit;
+  if (player.x > rightLimit) player.x = rightLimit;
+}
 
   // 🎮 CONTROLE
   let speed = 6;
