@@ -93,7 +93,7 @@ function update() {
     line.x = this.scale.width / 2 + offset; 
     line.width = 4 + scale * 10;
 
-    if (line.y > 600) line.y = 0;
+    if (line.y > this.scale.height) line.y = 0;
   });
 
   // 🎮 CONTROLE DO CARRO
